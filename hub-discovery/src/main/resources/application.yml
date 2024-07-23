@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: hub-discovery
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+eureka:
+  client:
+    eureka-server-connect-timeout-seconds: 5
+    enabled: true
+    fetch-registry: false
+    register-with-eureka: false
+
+server:
+  port: 8761

@@ -1,0 +1,74 @@
+spring:
+  application:
+    name: hub-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: init
+          uri: http://localhost:8000/
+          predicates:
+            - Path=/
+            - Method=GET
+        - id: login_user
+          uri: http://localhost:8000/login
+          predicates:
+            - Path=/login
+            - Method=POST
+        - id: register_user
+          uri: http://localhost:8000/register
+          predicates:
+            - Path=/login
+            - Method=POST
+        - id: signout_user
+          uri: http://localhost:8000/signout
+          predicates:
+            - Path=/signout
+            - Method=POST
+        - id: broker_settings
+          uri: http://localhost:8001/broker
+          predicates:
+            - Path=/broker
+            - Method=GET
+        - id: websocket_data
+          uri: ws://localhost:8001/ws
+          predicates:
+            - Path=/ws/**
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+      httpclient:
+        wiretap: true
+      httpserver:
+        wiretap: true
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true
+  instance:
+    preferIpAddress: true
+
+logging:
+  level:
+    reactor:
+      netty: INFO
+    org:
+      springframework:
+        cloud:
+          gateway: TRACE
+        security: DEBUG
+
+security:
+  jwk:
+    kty: oct
+    use: sig
+    kid: frostybear
+    k: nXF3esMv7GNvvue67xYUwpTQgY0VUdzyhjMB2p3O-m0f8m6iST_kJd8hwbLxdNhtgrZzGvmfe7OYFZaz2nqUkEBOe2ScfCHGrkw3yGCCnZlZ-M8KMZLwH13xLgh7fXNdL4gnFm7r41yqNaKMHC_SXzh9zxYf_fMa1yWzRxwXErZHbFHYVQ4rV-l6-2NWGcqpZfFuCZTbBXkY__3l4faXl1iPfuA33CYLiQxayNzOISMdYD-HehYj0AoMZW2YIz6goN13ngOZwQzfUifggjEnk-yee4Fca-XbZCswC2y2G9VdNeO46mtq9_Pf1hy1-3xko_xy_9b-DBp53fNNwQg7ZA
+    alg: HS512
+

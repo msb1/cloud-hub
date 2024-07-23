@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: hub-data-flow
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+server:
+  port: 8001
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+# KAFKA Consumer Properties
+consumer.key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+consumer.value.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+consumer.bootstrap.servers: 192.168.248.4:9092
+consumer.group.id: toptech
+consumer.auto.offset.reset: latest
+consumer.data.topic: factory
+consumer.processed.topic: hub
+consumer.db.store.data: true
+consumer.process.data: true
+
+# KAFKA Producer Properties
+producer.acks: all
+producer.bootstrap.servers: 192.168.248.4:9092
+producer.client.id: bw
+producer.key.serializer: org.apache.kafka.common.serialization.StringSerializer
+producer.value.serializer: org.apache.kafka.common.serialization.StringSerializer
+producer.model.topic: svc
+producer.max.in.flight.requests.per.connection: 1024
+#producer.retries: Integer.MAX_VALUE     # use default for now = 2147483647
+#producer.max.block.ms: Long.MAX_VALUE   # use default for now = 60000
+#producer.model.topic: str01
+#producer.model.key: SVC
+
+epd.hubname: toptech

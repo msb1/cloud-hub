@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: hub-resource
+  data:
+    mongodb:
+      uri: mongodb://barnwaldo:shakeydog@192.168.248.4:27017/toptech.users?authSource=admin
+      auto-index-creation: false
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+server:
+  port: 8000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+security:
+  jwk:
+    kty: oct
+    use: sig
+    kid: frostybear
+    k: nXF3esMv7GNvvue67xYUwpTQgY0VUdzyhjMB2p3O-m0f8m6iST_kJd8hwbLxdNhtgrZzGvmfe7OYFZaz2nqUkEBOe2ScfCHGrkw3yGCCnZlZ-M8KMZLwH13xLgh7fXNdL4gnFm7r41yqNaKMHC_SXzh9zxYf_fMa1yWzRxwXErZHbFHYVQ4rV-l6-2NWGcqpZfFuCZTbBXkY__3l4faXl1iPfuA33CYLiQxayNzOISMdYD-HehYj0AoMZW2YIz6goN13ngOZwQzfUifggjEnk-yee4Fca-XbZCswC2y2G9VdNeO46mtq9_Pf1hy1-3xko_xy_9b-DBp53fNNwQg7ZA
+    alg: HS512
